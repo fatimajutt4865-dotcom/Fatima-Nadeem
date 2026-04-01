@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WP Developer — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --off-white: #f5f3ef;
+    --cream: #ede9e2;
+    --ink: #1a1a1a;
+    --accent: #2a5cff;
+    --accent-warm: #ff5533;
+    --muted: #8a8680;
+    --border: #e0dcd5;
+    --card-bg: #ffffff;
+    --section-alt: #f9f7f4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--ink);
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; }
+
+  /* ─── NAV ─────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 5%;
+    background: rgba(245,243,239,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.15rem;
+    color: var(--black); text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.875rem; font-weight: 500;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--black); color: #fff;
+    padding: .55rem 1.4rem; border-radius: 100px;
+    text-decoration: none; font-size: 0.875rem; font-weight: 500;
+    transition: background .2s, transform .15s;
+  }
+  .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+
+  /* ─── HERO ─────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 7rem 5% 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--cream); border: 1px solid var(--border);
+    border-radius: 100px; padding: .35rem 1rem;
+    font-size: .75rem; font-weight: 500; color: var(--muted);
+    margin-bottom: 1.5rem; letter-spacing: .04em; text-transform: uppercase;
+  }
+  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.5)} }
+  
+  .hero-title {
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.03em; color: var(--black);
+    margin-bottom: 1.2rem;
+  }
+  .hero-title .line-accent { color: var(--accent); }
+  .hero-title .line-underline {
+    position: relative; display: inline-block;
+  }
+  .hero-title .line-underline::after {
+    content: '';
+    position: absolute; bottom: 2px; left: 0; right: 0; height: 3px;
+    background: var(--accent-warm); border-radius: 2px;
+  }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted); max-width: 440px;
+    margin-bottom: 2.2rem; font-weight: 300; line-height: 1.7;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--black); color: #fff;
+    padding: .8rem 2rem; border-radius: 100px;
+    text-decoration: none; font-weight: 500; font-size: .925rem;
+    transition: background .2s, transform .15s; display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--border);
+    padding: .8rem 2rem; border-radius: 100px;
+    text-decoration: none; font-weight: 500; font-size: .925rem;
+    transition: border-color .2s, transform .15s; display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800;
+    color: var(--black); line-height: 1;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: .78rem; color: var(--muted); margin-top: .2rem; text-transform: uppercase; letter-spacing: .06em; }
+
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+  }
+  .hero-card-stack { position: relative; width: 340px; height: 380px; }
+  .hero-card {
+    position: absolute; border-radius: 20px; padding: 1.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,.08);
+  }
+  .hc-main {
+    width: 280px; background: var(--card-bg);
+    top: 0; left: 50%; transform: translateX(-50%);
+    border: 1px solid var(--border);
+  }
+  .hc-float1 {
+    width: 160px; background: var(--black); color: #fff;
+    bottom: 20px; right: 0;
+    animation: float1 4s ease-in-out infinite;
+  }
+  .hc-float2 {
+    width: 140px; background: var(--accent); color: #fff;
+    bottom: 80px; left: 0;
+    animation: float2 5s ease-in-out infinite;
+  }
+  @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  .hc-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg,var(--accent),var(--accent-warm));
+    margin-bottom: .8rem; display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+  }
+  .hc-name { font-family: 'Syne',sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: .2rem; }
+  .hc-role { font-size: .78rem; color: var(--muted); }
+  .hc-skills { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+  .hc-skill-tag {
+    font-size: .7rem; background: var(--cream); border: 1px solid var(--border);
+    border-radius: 100px; padding: .2rem .7rem; color: var(--ink);
+  }
+  .hc-stat { font-family:'Syne',sans-serif; font-size: 1.6rem; font-weight: 800; }
+  .hc-stat-label { font-size: .7rem; opacity: .8; margin-top: .15rem; }
+  .hc-emoji { font-size: 1.4rem; margin-bottom: .3rem; }
+  .hc-mini-text { font-size: .7rem; opacity: .8; margin-top: .15rem; }
+
+  /* ─── SECTION BASE ─────────────────────────────── */
+  section { padding: 6rem 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block; font-size: .72rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: .1em; color: var(--accent);
+    margin-bottom: .8rem;
+  }
+  .section-title {
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800;
+    letter-spacing: -0.025em; line-height: 1.1; color: var(--black);
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--muted); max-width: 520px; line-height: 1.7; font-weight: 300;
+    margin-bottom: 3rem;
+  }
+
+  /* ─── ABOUT ─────────────────────────────────────── */
+  #about { background: var(--section-alt); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 5rem; align-items: center;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-placeholder {
+    width: 100%; aspect-ratio: 4/5;
+    background: var(--cream);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    position: relative; overflow: hidden;
+  }
+  .about-img-placeholder::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(42,92,255,.05), transparent);
+  }
+  .about-label {
+    position: absolute; bottom: 1.5rem; left: 1.5rem;
+    background: var(--black); color: #fff;
+    border-radius: 12px; padding: .8rem 1.2rem;
+    font-size: .8rem;
+  }
+  .about-label strong { font-family:'Syne',sans-serif; font-size: 1.2rem; display: block; }
+  .about-text { font-size: 1.05rem; color: #4a4744; line-height: 1.8; margin-bottom: 1.5rem; font-weight: 300; }
+  .about-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-bottom: 2rem; }
+  .about-list li {
+    display: flex; align-items: center; gap: .6rem;
+    font-size: .9rem; color: var(--ink);
+  }
+  .about-list li::before { content: '→'; color: var(--accent); font-weight: 700; }
+
+  /* ─── SERVICES ─────────────────────────────────── */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2rem;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    cursor: default;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px rgba(0,0,0,.07);
+    border-color: var(--accent);
+  }
+  .service-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--cream); display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1.2rem;
+  }
+  .service-title {
+    font-family: 'Syne',sans-serif; font-size: 1.05rem; font-weight: 700;
+    margin-bottom: .5rem; color: var(--black);
+  }
+  .service-desc { font-size: .875rem; color: var(--muted); line-height: 1.7; }
+
+  /* ─── SKILLS ─────────────────────────────────────── */
+  #skills { background: var(--black); }
+  #skills .section-title { color: var(--off-white); }
+  #skills .section-tag { color: #6b8cff; }
+  #skills .section-sub { color: #8a8680; }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  }
+  .skill-item {
+    background: #161616; border: 1px solid #2a2a2a;
+    border-radius: 16px; padding: 1.5rem 1.8rem;
+  }
+  .skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .skill-name { font-family:'Syne',sans-serif; font-size: .95rem; font-weight: 700; color: #e8e4dc; }
+  .skill-pct { font-size: .8rem; color: var(--accent); font-weight: 600; }
+  .skill-bar-bg { height: 5px; background: #2a2a2a; border-radius: 3px; overflow: hidden; }
+  .skill-bar-fill {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent), #6b8cff);
+    transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ─── PORTFOLIO ─────────────────────────────────── */
+  #portfolio { background: var(--section-alt); }
+  .portfolio-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  }
+  .portfolio-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,.1); }
+  .portfolio-img {
+    height: 200px; background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; position: relative; overflow: hidden;
+  }
+  .portfolio-img.p1 { background: linear-gradient(135deg, #e8f0fe, #c7d7fd); }
+  .portfolio-img.p2 { background: linear-gradient(135deg, #fef3e8, #fddcbc); }
+  .portfolio-img.p3 { background: linear-gradient(135deg, #e8fef3, #bcfdd5); }
+  .portfolio-overlay {
+    position: absolute; inset: 0;
+    background: rgba(42,92,255,.85);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity .3s;
+  }
+  .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-overlay a {
+    color: #fff; text-decoration: none;
+    font-family: 'Syne',sans-serif; font-weight: 700;
+    border: 2px solid rgba(255,255,255,.6);
+    padding: .6rem 1.4rem; border-radius: 100px; font-size: .875rem;
+    transition: border-color .2s, background .2s;
+  }
+  .portfolio-overlay a:hover { background: rgba(255,255,255,.2); border-color: #fff; }
+  .portfolio-body { padding: 1.5rem; }
+  .portfolio-cat { font-size: .72rem; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .4rem; }
+  .portfolio-title { font-family:'Syne',sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--black); margin-bottom: .4rem; }
+  .portfolio-desc { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── WHY CHOOSE ME ─────────────────────────────── */
+  .why-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  }
+  .why-item {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.8rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .why-item:hover { border-color: var(--accent); box-shadow: 0 8px 24px rgba(42,92,255,.08); }
+  .why-icon {
+    font-size: 1.5rem; flex-shrink: 0;
+    width: 44px; height: 44px;
+    background: var(--cream); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .why-title { font-family:'Syne',sans-serif; font-weight: 700; font-size: .95rem; margin-bottom: .3rem; }
+  .why-desc { font-size: .83rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── PROCESS ─────────────────────────────────────── */
+  #process { background: var(--section-alt); }
+  .process-steps {
+    display: flex; gap: 0; position: relative;
+    counter-reset: step;
+  }
+  .process-step {
+    flex: 1; padding: 2.5rem 2rem; position: relative;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-right: none; text-align: center;
+  }
+  .process-step:first-child { border-radius: 20px 0 0 20px; }
+  .process-step:last-child { border-right: 1px solid var(--border); border-radius: 0 20px 20px 0; }
+  .process-num {
+    font-family:'Syne',sans-serif; font-size: 2.5rem; font-weight: 800;
+    color: var(--cream); margin-bottom: .5rem; line-height: 1;
+  }
+  .process-icon { font-size: 1.8rem; margin-bottom: .7rem; }
+  .process-title { font-family:'Syne',sans-serif; font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
+  .process-desc { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+  .process-step::after {
+    content: '→';
+    position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+    color: var(--accent); font-size: 1.2rem; font-weight: 700; z-index: 1;
+  }
+  .process-step:last-child::after { display: none; }
+
+  /* ─── TESTIMONIALS ─────────────────────────────── */
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  }
+  .testi-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2rem;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .testi-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.06); }
+  .testi-stars { color: #f59e0b; font-size: 1rem; margin-bottom: 1rem; letter-spacing: .15em; }
+  .testi-text { font-size: .9rem; color: #4a4744; line-height: 1.8; margin-bottom: 1.5rem; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: .8rem; }
+  .testi-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    background: var(--cream);
+  }
+  .testi-name { font-family:'Syne',sans-serif; font-weight: 700; font-size: .9rem; }
+  .testi-role { font-size: .75rem; color: var(--muted); }
+
+  /* ─── CONTACT ─────────────────────────────────────── */
+  #contact { background: var(--black); }
+  #contact .section-title { color: var(--off-white); }
+  #contact .section-tag { color: #6b8cff; }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+  }
+  .contact-info-title { font-family:'Syne',sans-serif; font-size: 2rem; font-weight: 800; color: var(--off-white); margin-bottom: 1rem; line-height: 1.2; }
+  .contact-info-text { font-size: .95rem; color: #8a8680; line-height: 1.8; margin-bottom: 2rem; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.2rem; background: #161616; border: 1px solid #2a2a2a;
+    border-radius: 12px; margin-bottom: .8rem;
+  }
+  .contact-detail-icon { font-size: 1.2rem; }
+  .contact-detail-label { font-size: .72rem; color: #555; text-transform: uppercase; letter-spacing: .08em; }
+  .contact-detail-value { font-size: .9rem; color: #c8c4bc; font-weight: 500; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: .4rem; }
+  .form-label { font-size: .78rem; color: #8a8680; text-transform: uppercase; letter-spacing: .07em; }
+  .form-input {
+    background: #161616; border: 1px solid #2a2a2a;
+    color: var(--off-white); border-radius: 10px;
+    padding: .85rem 1.1rem; font-family: inherit; font-size: .9rem;
+    outline: none; transition: border-color .2s;
+  }
+  .form-input:focus { border-color: var(--accent); }
+  .form-input::placeholder { color: #444; }
+  textarea.form-input { resize: vertical; min-height: 120px; }
+  .btn-submit {
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 100px;
+    padding: .9rem 2.2rem; font-family: inherit; font-size: .925rem; font-weight: 500;
+    cursor: pointer; transition: background .2s, transform .15s;
+    align-self: flex-start; display: flex; align-items: center; gap: .5rem;
+  }
+  .btn-submit:hover { background: #1a4bdf; transform: translateY(-2px); }
+
+  /* ─── FOOTER ─────────────────────────────────────── */
+  footer {
+    background: #080808; padding: 3rem 5%;
+    border-top: 1px solid #1a1a1a;
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family:'Syne',sans-serif; font-size: 1.1rem; font-weight: 800;
+    color: var(--off-white); text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { text-decoration: none; color: #555; font-size: .85rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--off-white); }
+  .footer-copy { font-size: .8rem; color: #444; }
+  .footer-socials { display: flex; gap: .8rem; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #1a1a1a; border: 1px solid #2a2a2a;
+    display: flex; align-items: center; justify-content: center;
+    color: #555; text-decoration: none; font-size: .9rem;
+    transition: background .2s, color .2s;
+  }
+  .social-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ─── ANIMATIONS ─────────────────────────────────── */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .services-grid, .skills-grid, .portfolio-grid, .why-grid, .testi-grid { grid-template-columns: repeat(2,1fr); }
+    .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-visual { display: none; }
+    .process-steps { flex-wrap: wrap; }
+    .process-step { flex: 1 1 calc(50% - 1px); border-right: 1px solid var(--border); border-radius: 0; }
+    .process-step:first-child { border-radius: 20px 0 0 0; }
+    .process-step:last-child { border-radius: 0 0 20px 0; }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 1rem 4%; }
+    .nav-links { display: none; }
+    section { padding: 4rem 5%; }
+    .services-grid, .skills-grid, .portfolio-grid, .why-grid, .testi-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .hero-stats { gap: 1.5rem; }
+    .process-steps { flex-direction: column; }
+    .process-step { border-right: 1px solid var(--border) !important; border-radius: 12px !important; margin-bottom: .5rem; }
+    .process-step::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">WP<span>.</span>Dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge"><span class="hero-badge-dot"></span>Available for projects</div>
+      <h1 class="hero-title">
+        Professional<br>
+        <span class="line-accent">WordPress</span><br>
+        <span class="line-underline">Developer</span>
+      </h1>
+      <p class="hero-sub">I create modern, responsive, and high-performance WordPress websites for businesses and brands that want to grow online.</p>
+      <div class="hero-btns">
+        <a href="#portfolio" class="btn-primary">View Portfolio →</a>
+        <a href="#contact" class="btn-secondary">Contact Me</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">50<span>+</span></div>
+          <div class="stat-label">Projects Done</div>
+        </div>
+        <div>
+          <div class="stat-num">40<span>+</span></div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+        <div>
+          <div class="stat-num">5<span>★</span></div>
+          <div class="stat-label">Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-card hc-main">
+          <div class="hc-avatar">👨‍💻</div>
+          <div class="hc-name">WordPress Developer</div>
+          <div class="hc-role">Freelance · Full-Stack WP</div>
+          <div class="hc-skills">
+            <span class="hc-skill-tag">WordPress</span>
+            <span class="hc-skill-tag">WooCommerce</span>
+            <span class="hc-skill-tag">Elementor</span>
+            <span class="hc-skill-tag">HTML/CSS</span>
+            <span class="hc-skill-tag">UI/UX</span>
+          </div>
+        </div>
+        <div class="hero-card hc-float1">
+          <div class="hc-emoji">🚀</div>
+          <div class="hc-stat">50+</div>
+          <div class="hc-stat-label">Projects Delivered</div>
+        </div>
+        <div class="hero-card hc-float2">
+          <div class="hc-emoji">⚡</div>
+          <div class="hc-mini-text">Fast Delivery</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;margin-top:.2rem;">On-time, Always</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <div class="about-img-placeholder">
+          👨‍💻
+          <div class="about-label">
+            <strong>5+ Years</strong>
+            Experience
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="section-tag">About Me</span>
+        <h2 class="section-title">Building the web,<br>one site at a time.</h2>
+        <p class="about-text">I am a passionate WordPress Developer specializing in creating modern, responsive, and user-friendly websites. I focus on delivering high-quality solutions that help businesses establish a strong online presence and grow their brand.</p>
+        <p class="about-text">With expertise in WordPress, WooCommerce, and modern design principles, I bridge the gap between stunning design and functional development.</p>
+        <ul class="about-list">
+          <li>WordPress Expert</li>
+          <li>WooCommerce Specialist</li>
+          <li>Responsive Design</li>
+          <li>Speed Optimization</li>
+          <li>Custom Themes</li>
+          <li>Plugin Development</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="display:inline-flex;">Let's Work Together →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <span class="section-tag">What I Do</span>
+    <h2 class="section-title">My Services</h2>
+    <p class="section-sub">From custom WordPress builds to high-converting e-commerce stores, I deliver digital solutions tailored to your goals.</p>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">🌐</div>
+        <div class="service-title">WordPress Development</div>
+        <div class="service-desc">Custom WordPress websites built from scratch or using premium themes, tailored to your brand and business needs.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🛒</div>
+        <div class="service-title">WooCommerce Stores</div>
+        <div class="service-desc">Fully functional e-commerce stores with payment gateways, product management, and conversion-optimized design.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">📄</div>
+        <div class="service-title">Landing Page Design</div>
+        <div class="service-desc">High-converting landing pages designed to capture leads and drive sales with compelling layouts and CTAs.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🎨</div>
+        <div class="service-title">Website Redesign</div>
+        <div class="service-desc">Transform your outdated website into a modern, professional, and user-friendly experience that impresses visitors.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">📱</div>
+        <div class="service-title">Responsive Design</div>
+        <div class="service-desc">Pixel-perfect websites that look and perform flawlessly on every device — mobile, tablet, and desktop.</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">⚡</div>
+        <div class="service-title">Speed Optimization</div>
+        <div class="service-desc">Boost your site's Core Web Vitals, improve load times, and enhance SEO performance with expert optimization.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <span class="section-tag">My Expertise</span>
+    <h2 class="section-title">Skills &amp; Tools</h2>
+    <p class="section-sub" style="color:#666;">Proficient in the tools and technologies that power modern WordPress development.</p>
+    <div class="skills-grid">
+      <div class="skill-item"><div class="skill-header"><span class="skill-name">WordPress</span><span class="skill-pct">95%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div></div>
+      <div class="skill-item"><div class="skill-header"><span class="skill-name">Elementor</span><span class="skill-pct">90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div></div>
+      <div class="skill-item"><div class="skill-header"><span class="skill-name">WooCommerce</span><span class="skill-pct">88%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:88%"></div></div></div>
+      <div class="skill-item"><div class="skill-header"><span class="skill-name">Phlox Theme</span><span class="skill-pct">85%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:85%"></div></div></div>
+      <div class="skill-item"><div class="skill-header"><span class="skill-name">Woodmart Theme</span><span class="skill-pct">82%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:82%"></div></div></div>
+      <div class="skill-item"><div class="skill-header"><span class="skill-name">HTML / CSS</span><span class="skill-pct">92%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:92%"></div></div></div>
+      <div class="skill-item"><div class="skill-header"><span class="skill-name">Responsive Design</span><span class="skill-pct">95%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div></div>
+      <div class="skill-item"><div class="skill-header"><span class="skill-name">UI/UX Design</span><span class="skill-pct">80%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+      <div class="skill-item"><div class="skill-header"><span class="skill-name">SEO Optimization</span><span class="skill-pct">78%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:78%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-inner">
+    <span class="section-tag">My Work</span>
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-sub">A selection of recent work that demonstrates my range across industries and design styles.</p>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="portfolio-img p1">
+          🏠
+          <div class="portfolio-overlay"><a href="#">View Project ↗</a></div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-cat">Interior Design</div>
+          <div class="portfolio-title">Interior Designer Website</div>
+          <div class="portfolio-desc">A stunning portfolio site for an interior design studio featuring a gallery, services, and contact booking.</div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-img p2">
+          🛍️
+          <div class="portfolio-overlay"><a href="#">View Project ↗</a></div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-cat">E-Commerce</div>
+          <div class="portfolio-title">E-Commerce Store</div>
+          <div class="portfolio-desc">A full WooCommerce store with product filtering, cart, checkout, and payment gateway integration.</div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-img p3">
+          🏢
+          <div class="portfolio-overlay"><a href="#">View Project ↗</a></div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-cat">Business</div>
+          <div class="portfolio-title">Business Website</div>
+          <div class="portfolio-desc">A professional corporate site with services, team profiles, case studies, and a lead generation form.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE ME -->
+<section id="why">
+  <div class="section-inner">
+    <span class="section-tag">Why Work With Me</span>
+    <h2 class="section-title">What sets me apart</h2>
+    <p class="section-sub">Every project I take on receives the same level of dedication, precision, and creative thinking.</p>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-icon">🎨</div><div><div class="why-title">Professional Design</div><div class="why-desc">Clean, modern aesthetics that align with your brand and impress your visitors from the first second.</div></div></div>
+      <div class="why-item"><div class="why-icon">⚡</div><div><div class="why-title">Fast Delivery</div><div class="why-desc">I respect deadlines. Projects are delivered on time without compromising quality or attention to detail.</div></div></div>
+      <div class="why-item"><div class="why-icon">📱</div><div><div class="why-title">Responsive Websites</div><div class="why-desc">Every site I build works flawlessly across all screen sizes, ensuring a perfect mobile experience.</div></div></div>
+      <div class="why-item"><div class="why-icon">😊</div><div><div class="why-title">Client Satisfaction</div><div class="why-desc">I communicate clearly and work closely with clients to ensure the final result exceeds expectations.</div></div></div>
+      <div class="why-item"><div class="why-icon">💻</div><div><div class="why-title">Clean Code</div><div class="why-desc">Well-structured, documented code that's easy to maintain and scale as your business grows.</div></div></div>
+      <div class="why-item"><div class="why-icon">✨</div><div><div class="why-title">Modern UI</div><div class="why-desc">I stay current with design trends to deliver interfaces that feel fresh, relevant, and engaging.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-inner">
+    <span class="section-tag">How I Work</span>
+    <h2 class="section-title">My Working Process</h2>
+    <p class="section-sub">A transparent, structured approach that keeps you informed at every stage of your project.</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="process-num">01</div>
+        <div class="process-icon">💬</div>
+        <div class="process-title">Discussion</div>
+        <div class="process-desc">We talk through your goals, requirements, and vision for the project.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">02</div>
+        <div class="process-icon">📋</div>
+        <div class="process-title">Planning</div>
+        <div class="process-desc">I map out the sitemap, tech stack, timeline, and key milestones.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">03</div>
+        <div class="process-icon">🎨</div>
+        <div class="process-title">Design</div>
+        <div class="process-desc">Wireframes and mockups are created for your review and approval.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">04</div>
+        <div class="process-icon">⚙️</div>
+        <div class="process-title">Development</div>
+        <div class="process-desc">The site is built with clean code, tested thoroughly across devices.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">05</div>
+        <div class="process-icon">🚀</div>
+        <div class="process-title">Launch</div>
+        <div class="process-desc">Go live! Post-launch support ensures everything runs smoothly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-inner">
+    <span class="section-tag">Social Proof</span>
+    <h2 class="section-title">Client Testimonials</h2>
+    <p class="section-sub">Real feedback from clients who have experienced the results of working together.</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Exceptional work from start to finish. The website exceeded every expectation — clean design, fast loading, and delivered ahead of schedule. Highly recommend!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍💼</div>
+          <div><div class="testi-name">Sarah M.</div><div class="testi-role">Interior Design Studio Owner</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Our WooCommerce store looks incredible and sales have increased since the redesign. Professional, responsive, and a pleasure to work with throughout the project."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨‍💼</div>
+          <div><div class="testi-name">Ahmed K.</div><div class="testi-role">E-Commerce Business Owner</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"A true professional who understands both design and business. Our new corporate site perfectly represents our brand. Communication was clear and timely throughout."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍🔬</div>
+          <div><div class="testi-name">Priya R.</div><div class="testi-role">Marketing Director</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <span class="section-tag">Get In Touch</span>
+        <h2 class="contact-info-title">Have a project in mind? Let's build something amazing.</h2>
+        <p class="contact-info-text">I'm currently accepting new projects. Whether you need a brand-new site or want to improve an existing one, I'd love to hear from you.</p>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">✉️</span>
+          <div><div class="contact-detail-label">Email</div><div class="contact-detail-value">hello@wpdeveloper.com</div></div>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">💬</span>
+          <div><div class="contact-detail-label">WhatsApp</div><div class="contact-detail-value">+92 300 0000000</div></div>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-icon">📍</span>
+          <div><div class="contact-detail-label">Location</div><div class="contact-detail-value">Available Worldwide (Remote)</div></div>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="john@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input class="form-input" type="text" placeholder="Project Inquiry">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button class="btn-submit">Send Message ✉️</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">WP<span>.</span>Dev</a>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-socials">
+      <a href="#" class="social-btn" title="LinkedIn">in</a>
+      <a href="#" class="social-btn" title="GitHub">gh</a>
+      <a href="#" class="social-btn" title="Twitter">𝕏</a>
+      <a href="#" class="social-btn" title="Fiverr">f</a>
+    </div>
+    <p class="footer-copy">© 2026 WordPress Developer. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// Intersection Observer for fade-up animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Animate skill bars on scroll
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => { bar.style.width = width; }, 100);
+      });
+      skillObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+const skillsSection = document.querySelector('#skills');
+if (skillsSection) skillObserver.observe(skillsSection);
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
